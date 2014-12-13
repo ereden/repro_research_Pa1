@@ -61,7 +61,7 @@ maxtime_minute <- maxtime - maxtime_hour*60
 Maximum steps by interval occurs in the `r maxid`th interval, corresponding to `r maxtime_hour`:`r maxtime_minute` in the morning.
 
 ```{r}
-missing <- sum(is.na(raw_int$steps))
+missing <- sum(is.na(fitbit$steps))
 ```
 
 Many values are missing in this data set. Total number of rows with missing values is: `r missing`.
