@@ -1,0 +1,61 @@
+A histogram of the total number of steps each day:
+
+```{r, cache = TRUE}
+url <- "https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip"
+download.file(url, destfile = "activity.zip", method = "curl")
+unzip("activity.zip", "activity.csv")
+fitbit <- read.csv("activity.csv", header = TRUE)
+**need to sum by day**hist(fitbit$steps)
+```
+
+Also, calculating the mean and median steps:  
+```{r stats, cache = TRUE}
+mean(fitbit$steps, na.rm = TRUE)
+median(fitbit$steps, na.rm = TRUE)
+```
+
+In addition, we want to look at average of steps per 5 minute interval:
+
+```{r time, cache = TRUE}
+steps_by_interval <- aggregate(steps ~ interval, data = fitbit, mean, na.rm = TRUE)
+plot(steps_by_interval$interval, steps_by_interval$steps, type = "l")
+```
+```{r, cache = TRUE}
+maxid <- which.max(steps_by_interval$steps)
+maxinterval <- steps_by_interval$interval[maxid]
+```
+Maximum steps by interval occurs in `r maxinterval` interval.
+
+```{r, cache = TRUE}
+missing <- sum(is.na(fitbit$steps))
+```
+
+Many values are missing in this data set. Total number of rows with missing values is: `r missing`.
+
+This time, we'll be replacing all the missing data with the average data from that interval across the rest of the days. Looking at the new histogram of steps...
+
+```{r, cache = TRUE}
+fitbit2 <- data.frame(fitbit)
+fitbit2[is.na(fitbit2)] <- steps_by_interval$steps 
+hist(fitbit2$steps)
+```
+
+And the new mean and median of the data with the missing data filled in:
+
+```{r}
+mean(fitbit2$steps)
+median(fitbit2$steps)
+```
+
+We also want to know what's different between the weekdays and weekends.
+
+```{r}
+fitbit2$date2 <- as.Date(fitbit2$date, format = "%Y-%m-%d")
+fitbit2$weekday <- weekdays(fitbit2$date2)
+fitbit2$weekday_factor <- ifelse(fitbit2$weekday %in% c("Saturday", "Sunday"), "Weekend", "Weekday")
+fitbit2$weekday_factor <- as.factor(fitbit2$weekday_factor)
+steps_by_interval2 <- aggregate(steps ~ interval, data = fitbit2, mean)
+fitbit2$avg_by_interval <- rep(steps_by_interval2$steps, 61)
+library(ggplot2)
+
+qplot(x = interval, y = avg_by_interval, data = fitbit2, geom = "line", facets = weekday_factor ~ .)

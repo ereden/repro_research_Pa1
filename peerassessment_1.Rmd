@@ -1,0 +1,97 @@
+Before you begin, load and preprocess data for use
+
+```{r}
+url <- "https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip"
+download.file(url, destfile = "activity.zip", method = "curl")
+dir.create("./zipdir")
+unzip("activity.zip", exdir = "./zipdir")
+##this puts the downloaded xip files into the zipdir directory created
+
+rawdata <- read.csv("./zipdir/activity.csv", header = TRUE, stringsAsFactors = FALSE)
+raw_dates <- rawdata
+
+##raw data has been read in, but we want to process for dates and intervals
+
+raw_dates$date <- as.POSIXct(strptime(raw_dates$date, "%Y-%m-%d"))
+raw_int <- raw_dates
+raw_int$interval <- as.factor(raw_int$interval)
+
+##for first part, we want to only consider the subset of data that is complete
+
+raw_complete <- complete.cases(raw_int)
+use_fit <- raw_int[raw_complete,]
+```
+
+
+First, we want to know how many steps are taken each day. Let's look at a histogram of the data:
+
+```{r}
+##need to find the mean steps taken by each day: 
+means_complete <- aggregate(use_fit$steps, by = list(use_fit$date), mean)
+hist(means_complete$x, main = "Average Steps by Day", xlab = "Mean steps by day")
+```
+
+
+```{r}
+##starting from the means_complete$x which are the mean steps by day, we will calculate the mean and the median, rounded to 2 decimal places
+
+mean_total <- round(mean(means_complete$x),2)
+median_complete <- round(median(means_complete$x),2)
+```
+
+The mean number of steps per day is `r mean_total` and the median is `r median_complete`.
+
+In addition, we want to look at the average daily activity by 5 minute interval.
+
+```{r}
+#similar to above, we now want to know steps by interval across all the days.
+daily_activity <- aggregate(use_fit$steps, by = list(use_fit$interval), mean)
+plot(daily_activity$x, daily_activity$interval, type = "l", ylab = "Average Steps", xlab = "5min interval index from 12:00am to 11:55pm")
+```
+```{r}
+#maxid will tell us which interval has the highest number of steps on average
+maxid <- which.max(daily_activity$x)
+
+#to turn this into a time, I'll calculate total number of minutes (since midnight) by multiplying by 5 [since this is counted in 5 min intervals], and then convert that to hours and minutes
+maxtime <- maxid*5
+maxtime_hour <- maxtime %/% 60
+maxtime_minute <- maxtime - maxtime_hour*60
+
+```
+Maximum steps by interval occurs in the `r maxid`th interval, corresponding to `r maxtime_hour`:`r maxtime_minute` in the morning.
+
+```{r}
+missing <- sum(is.na(fitbit$steps))
+```
+
+Many values are missing in this data set. Total number of rows with missing values is: `r missing`.
+
+This time, we'll be replacing all the missing data with the mean number of steps taken during that interval across the rest of the days, and see if this changes the histogram of average daily steps.
+
+```{r}
+steps_by_interval <- aggregate(steps ~ interval, data = raw_int, mean)
+raw_int$avg_by_interval <- rep(steps_by_interval$steps, 61)
+#61 is the number of days; or the number of times each of the intervals repeats
+raw_int$steps_filled_in <- ifelse(is.na(raw_int$steps), raw_int$steps_filled_in <- raw_int$avg_by_interval, raw_int$steps_filled_in <- raw_int$steps)
+
+means_filled_in <- aggregate(raw_int$steps_filled_in, by = list(raw_int$date), mean)
+hist(means_filled_in$x, main = "Average Steps by Day", xlab = "Mean steps by day")
+
+mean_filled_in <- round(mean(means_filled_in$x),2)
+median_filled_in <- round(median(means_filled_in$x),2)
+```
+
+The new mean number of steps daily is: `r mean_filled_in` and the median is: `r median_filled_in`. These didn't change very much at all because of how we chose to assign NA values. However, the histogram shows a greater density around the average (note that the scale is up to 25 instead of 15).
+
+We also want to know what's different between the weekdays and weekends.
+
+```{r}
+##using weekdays() to assign days of the week to each data
+raw_int$weekday <- weekdays(raw_int$date)
+raw_int$weekday_factor <- ifelse(raw_int$weekday %in% c("Saturday", "Sunday"), "Weekend", "Weekday")
+raw_int$weekday_factor <- as.factor(raw_int$weekday_factor)
+#then dividing these weekdays into weekend and weekdays, and defining those as factors
+
+library(ggplot2)
+
+qplot(x = interval, y = steps_filled_in, data = raw_int, geom = "line", facets = weekday_factor ~ ., ylab = "Steps", xlab = "Interval (in 5 min chunks from 12:00am to 11:55pm)")

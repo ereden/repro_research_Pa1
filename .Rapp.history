@@ -1,0 +1,281 @@
+?lines
+?lpoints
+?trellis.par.set()
+qplot(Wind, Ozone, data = airquality, facets = .~ factor(Month))
+airquality = transform(airquality, Month = factor(Month))
+qplot(Wind, Ozone, data = airquality, facets = .~ Month)
+qplot(votes, rating, data = movies, smooth = "loess")
+qplot(votes, rating, data = movies)
+qplot(votes, rating, data = movies) + geom_smooth()
+qplot(votes, rating, data = movies) + stats_smooth("loess")
+qplot(votes, rating, data = movies, panel = panel.loess)
+g <- ggplot(movies, aes(votes, rating))
+print(g)
+library(ggplot2)
+str(mpg)
+qplot(x = displ, y = hwy, data = mpg)
+qplot(x = displ, y = hwy, data = mpg, color = drv)
+qplot(x = displ, y = hwy, data = mpg, geom = c("point", "smooth"))
+qplot(hwy, data = mpg, fill = drv)
+qplot(hwy, data = mpg, color = drv)
+qplot(displ, hwy, data = mpg, facets = . ~ drv)
+qplot(hwy, data = mpg, facets = . ~ drv)
+qplot(hwy, data = mpg, facets =  drv ~ .)
+qplot(hwy, data = mpg, facets =  drv ~ ., binwidth = 2)
+str(maacs)
+qplot(hwy, data = mpg, color = drv, geom = c("bar", "smooth")
+)
+qplot(hwy, data = mpg, color = drv, geom = c("smooth")
+)
+qplot(hwy, data = mpg, color = drv, geom = c("density", "bar")
+)
+qplot(hwy, data = mpg, fill = drv, geom = c("bar", "density"))
+qplot(hwy, data = mpg, fill = drv, geom = c("density"))
+qplot(hwy, data = mpg, fill = drv)
+qplot(hwy, data = mpg, fill = drv) + geom_density()
+library(data)
+library(mpg)
+library(datasets)
+str(mpg)
+library(mpg)
+library(iris)
+list.files(datasets)
+data()
+str(iris)
+g <- ggplot(iris, x = petal.length, y = petal.width)
+library(ggplot2)
+g <- ggplot(iris, x = petal.length, y = petal.width)
+g + geom_smooth(method = "lm") + facets(. ~ Species)
+g + geom_smooth(method = "lm") + facet_grid(. ~ Species)
+g <- ggplot(iris, aes(petal.length, petal.width))
+g + geom_smooth(method = "lm") + facet_grid(. ~ Species)
+g <- ggplot(iris, aes(Petal.Length, Petal.Width))
+g + geom_smooth(method = "lm") + facet_grid(. ~ Species)
+g + geom_smooth(method = "lm") + facet_grid(. ~ Species) + geom_point()
+pbinom(4, size = 8, prob = 0.5, lower.tail = FALSE)
+pbinom(5, size = 8, prob = 0.5, lower.tail = FALSE)
+pbinom(6, size = 8, prob = 0.5, lower.tail = FALSE)
+?pbinom
+pbinom(4, size = 8, prob = 0.5)
+pbinom(6, size = 8, prob = 0.5)
+pbinom(3, size = 8, prob = 0.5)
+pbinom(5, size = 8, prob = 0.5)
+pbinom(3, size = 8, prob = 0.5, lower.tail = FALSE)
+pbinom(8, size = 10, prob = 0.5, lower.tail = FALSE)
+qnorm(.95, mean = mu, sd = sd)
+mu <- 0
+sd <- 1
+qnorm(.95, mean = mu, sd = sd)
+qnorm(-.95, mean = mu, sd = sd)
+qnorm(.05, mean = mu, sd = sd)
+qnorm(.975, mean = mu, sd = sd)
+pnrom(0.95, 0, 1)
+pnorm(0.95, 0, 1, lower.tail = FALSE)
+pnorm(0.95, 0, 1)
+pnorm(1.645, 0, 1)
+pnorm(1.645, 0, 1, lower.tail = FALSE)
+pnorm(1160, mean = 1020, sd = 50, lower.tail = FALSE)
+pnorm(2.8, lower.tail = FALSE)
+qnorm(2.8, lower.tail = FALSE)
+qnorm(1160, mean = 1020, sd = 50, lower.tail = FALSE)
+args(qnorm)
+qnorm(.75, mean = 1020, sd = 50)
+pnorm(5, 11, 2)
+ppois(40, lambda = 45)
+pbinom(2, size = 500, prob = 0.01)
+ppois(2, lambda = 500*.01)
+pbinom(2, size = 1000, prob = 0.01)
+ppois(2, lambda = 1000*.01)
+n <- 1000
+m  = 1000
+meansn <- cumsum(rnorm(n))/1:n
+meansn <- cumsum(rnorm(n))/(1:n)
+meansm <- cumsum(rnorm(m))/(1:m)
+plot(meansn)
+plot(meansn, type = "l")
+plot(meansm, type = "l")
+ggplot(meansn)
+library(ggplot2)
+ggplot(meansn, geom("line"))
+ggplot(meansn, geom = "line")
+qplot(meansn)
+qplot(meansn, geom = "line")
+means <- cumsum(sample(0:1, n, replace = TRUE))/(1:n)
+plot(means, type = "l")
+means <- cumsum(sample(0:1, n, replace = TRUE))/(1:n)
+plot(means, type = "l")
+library(UsingR)
+load.packages(UsingR)
+load.dataset(UsingR)
+install.packages(UsingR)
+install.package(UsingR)
+data(father.son)
+installpackages(data)
+install.package(data)
+install.packages(data)
+library(datasets)
+list.files(datasets)
+list.files()
+list()
+list(datasets)
+load(UsingR)
+install(UsingR)
+install.packages("RMySQL")
+install.packages("UsingR")
+data(father.son)
+library(UsingR)
+data(father.son)
+x <- father.son$fheight
+mean(x) + c(-1, 1)*qnorm(0.025, 0.975)
+mean(x) + c(-1, 1)*qnorm(0.025, 0.975)/12
+mean(x) + qnorm(c(0.025, 0.975))*sd(x)/sqrt(length(x)/12
+)
+mean(x) + qnorm(c(0.025, 0.975))*sd(x)/sqrt(length(x))
+head(x)
+str(father.son)
+binom.test(56, 100)$conf.int
+n <- 20
+pvals = seq(0.1, 0.9, by = 0.05)
+nosim <- 1000
+n <- 20#
+pvals <- seq(0.1, 0.9, by = 0.05)#
+nosim <- 1000#
+coverage <- sapply(pvals, function(p) {#
+     phats <- rbinom(nosim, prob = p, size = n)/n#
+     ll <- phats - qnorm(0.975) * sqrt(phats * (1-phats)/n)#
+     ul <- phats + qnorm(0.975) * sqrt(phats*(1-phats)/n)#
+})
+coverage
+plot(pvals, coverage)
+coverage(pval = 0.5)
+coverage[[pval = 0.5]]
+poisson.test(10, 60)$conf
+poisson.test(10, T = 60)$conf
+poisson.test((10/60), T = 60)$conf
+poisson.test(600, T = 60)$conf
+lambdavals <- seq(0.005, 0.1, by = 0.01)
+nosim <- 1000
+t <- 100
+coverage <- sapply(lambdavals, function(lambda) {#
+     lhats <- rpois(nosim, lambda = lambda * t)/t#
+     ll <- lhats - qnorm(0.975) * sqrt(lhats/t)#
+     ul <- lhats + qnorm(0.975) * sqrt(lhats/t)#
+})
+plot(x = lambdavals, y = coverage, type = "l")
+coverage <- sapply(lambdavals, function(lambda) {#
+     lhats <- rpois(nosim, lambda = lambda * t)/t#
+     ll <- lhats - qnorm(0.975) * sqrt(lhats/t)#
+     ul <- lhats + qnorm(0.975) * sqrt(lhats/t)#
+     mean(ll < lambda & ul > lambda)#
+})
+plot(x = lambdavals, y = coverage, type = "l")
+library(ggplot2)
+qplot(x = lambdavals, y = coverage)
+t <- 1000
+coverage <- sapply(lambdavals, function(lambda) {#
+     lhats <- rpois(nosim, lambda = lambda * t)/t#
+     ll <- lhats - qnorm(0.975) * sqrt(lhats/t)#
+     ul <- lhats + qnorm(0.975) * sqrt(lhats/t)#
+     mean(ll < lambda & ul > lambda)#
+})
+qplot(x = lambdavals, y = coverage)
+pbinom(3, 0.5, 5)
+args(pbinom)
+pbinom(3, 5, 0.5 lower.tail = FALSE)
+pbinom(3, 5, 0.5, lower.tail = FALSE)
+args(rpois)
+rpois(10, 3*5)
+rpois(10, 15)
+args(ppois)
+ppois(10, 15, lower.tail = TRUE)
+args(qnorm)
+qnorm(0.95, mean = 1100, sd = 75)
+0.05*.88/.93
+0.05*.93/.88
+0.05*.88/(1-.93)
+0.05*.93/(1-.88)
+qnorm(0.95, 100, 10, lower.tail = FALSE)
+qnorm(0.95, 100, 10, lower.tail = TRUE)
+20/sqrt(50)
+args(pbinom)
+args(4, 6, 0.5, lower.tail = TRUE)
+pbinom(4, 6, 0.5, lower.tail = TRUE)
+pbinom(4, size = 6, prob = 0.5, lower.tail = FALSE)
+sqrt(1/12)/10
+sqrt(1/12)/10+.5
+0.1/0.02886751
+0.01/0.02886751
+mu = 0.5
+sd = sqrt(1/12)/10
+pnorm(0.51, mu, sd, lower.tail = FALSE)
+2.96/sqrt(10)
+2.96/sqrt(10)*2.96/sqrt(10)
+2.96/10
+mean((1:6 - 3.5)^2)
+ppois(20, 16.5)
+ppois(20, 16.5*2)
+qnorm(.95, 1100, 75)
+qnorm(.95, 1100, 7.5)
+pbinom(3, 5, 0.5, lower.tail = FALSE)
+ppois(10, 15)
+ucscDB <- dbConnect(MySQL(), user = "genome", host = "genome-mysql.cse.ucsf.edu")
+library("RMySQL")
+ucscDB <- dbConnect(MySQL(), user = "genome", host = "genome-mysql.cse.ucsf.edu")
+ucscDB <- dbConnect(MySQL(), user = "genome", host = "genome-mysql.cse.ucsc.edu")
+result <- dbGetQuery(ucscDb, "show databases;"); dbDisconnect(ucscDb);
+ucscDB <- dbConnect(MySQL(), user = "genome", host = "genome-mysql.cse.ucsc.edu")
+library("RMySQL")
+ucscDb <- dbConnect(MySQL(), user = "genome", host = "genome-mysql.cse.ucsc.edu")
+result <- dbGetQuery(ucscDb, "show databases;"); dbDisconnect(ucscDb);
+result
+hg19 <- dbConnect(MySQL(), user = "genome", db = "hg19", host = "genome-mysql.cse.ucsc.edu")
+allTables <- dbListTables(hg19)
+length(allTables)
+allTables[1:5]
+dbListFields(hg19, "affyU133Plus2")
+dbGetQuery(hg19, "select count(*) from affyU133Plus2")
+affyData <- dbReadTable(hg19, "affyU133Plus2")
+head(affyData)
+query <- dbSendQuery(hg19, "select * from affyU133Plus2 where misMatches between 1 and 3")#
+##query is remote#
+##to make it local#
+affyMis <- fetch(query); quantile(affyMis$misMatches)
+affyMisSmall <- fetch(query, n = 10); dbClearResult(query);
+dim(affyMisSmall)
+dbDisconnect(hg19)
+setwd("~/Desktop/repro_research")
+fitbit <- read.csv("activity.csv")
+fitbit2 <- fitbit
+fitbit2[is.na(fitbit2)] <- steps_by_interval$steps
+fitbit2[is.na(fitbit2)] <- 3
+steps_by_interval2 <- aggregate(steps ~ interval ~ weekday_factor, data = fitbit2, mean)
+fitbit2$date2 <- as.Date(fitbit2$date, format = "%Y-%m-%d")#
+fitbit2$weekday <- weekdays(fitbit2$date2)#
+fitbit2$weekday_factor <- ifelse(fitbit2$weekday %in% c("Saturday", "Sunday"), "Weekend", "Weekday")#
+fitbit2$weekday_factor <- as.factor(fitbit2$weekday_factor)
+steps_by_interval2 <- aggregate(steps ~ interval ~ weekday_factor, data = fitbit2, mean)
+steps_by_interval2 <- aggregate(steps ~ interval, data = fitbit2, mean)
+str(steps_by_interval2)
+fitbit2 <- c[fitbit2, steps_by_interval2]
+fitbit2$steps_by_interval2 <- aggregate(steps ~ interval, data = fitbit2, mean)
+?lattice
+library(lattice)
+?lattice
+?xyplot
+?ggplot2
+?ggplot
+library(ggplot2)
+?ggplot2
+?ggplot
+?qplot
+?ggplot
+fitbit2$date2 <- as.Date(fitbit2$date, format = "%Y-%m-%d")#
+fitbit2$weekday <- weekdays(fitbit2$date2)#
+fitbit2$weekday_factor <- ifelse(fitbit2$weekday %in% c("Saturday", "Sunday"), "Weekend", "Weekday")#
+fitbit2$weekday_factor <- as.factor(fitbit2$weekday_factor)
+str(fitbit2)
+steps_by_interval2 <- aggregate(steps ~ interval, data = fitbit2, mean)#
+fitbit2$avg_by_interval <- rep(steps_by_interval2$steps, 61)
+str(fitbit2)
+library(ggplot2)
+qplot(interval, avg_by_interval, data = fitbit2, facets = weekday_factor ~ ., geom = "line")
